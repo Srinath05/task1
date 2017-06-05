@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<title>Notes</title>
+<h1>Joe's Notes</h1>
+<body>
+<form name = "Notes">
+	Note :
+	<select id = "newop" onClick = "fdisp()">
+	</select>
+	Priority :
+	<select id = "prior" onClick = "setpriority()">
+		<option>High</option>
+		<option>Medium</option>
+		<option>Low</option>
+	</select>
+	<br>
+	<textarea id ="notetx" name ="note" rows ="20" cols = "70" placeholder = "Type Notes here"></textarea><br>
+  	<input type = "button" value = "Save" onClick ="fread()">
+	<input type = "button" value = "New" onClick = "fnew()">
+	<input type = "button" value = "Delete" onClick = "fdelete()">
+	<input type = "button" value = "Sort" onClick = "fsort()">
+	<input type = "button" value = "Store" onClick = "fstore()">
+<input type = "button" value = "Retrieve" onClick = "fretrieve()">
+</form>
+<style type="text/css">
+h1{
+	text-align: center;
+	font-family: "Monotype Corsiva";
+}
+form{
+	text-align: center;
+}
+select{
+	padding: 5px;
+	margin-bottom: 20px;
+	background-color: blue;
+	color: yellow;
+}
+textarea{
+	color: yellow;
+}
+input{
+	background-color: black;
+	color : white;
+	padding: 5px;
+	margin: 10px;
+}
+body{
+	background-image: url("note.jpg");
+	color:red;
+}
+</style>
+<script type="text/javascript">
+var s = [],i=2,x,prt = [];
+x = document.getElementById("newop");
+var z = document.getElementById("prior");
+var tx = document.getElementById("notetx");
+if(z.value == "High"){
+	tx.style.backgroundColor = "red";
+}
+else if(z.value == "Medium"){
+	tx.style.backgroundColor = "green";
+}
+else if(z.value == "Low"){
+	tx.style.backgroundColor = "blue";
+}
+function setpriority(){
+	if(z.value == "High"){
+		tx.style.backgroundColor = "red";
+	}
+	else if(z.value == "Medium"){
+		tx.style.backgroundColor = "green";
+	}
+	else if(z.value == "Low"){
+		tx.style.backgroundColor = "blue";
+	}
+}
+function fnew(){
+	var op = document.createElement("option");
+	op.text = prompt("Enter the title of the note : ", "");
+	x.add(op);
+	x.value = op.text;
+	document.Notes.note.value = "";
+}
+function fread(){
+	if(x.value == ""){
+		alert("Create a note first!!!");
+	}
+	else if(document.Notes.note.value == ""){
+		alert("Type something!!!");
+	}
+	else{
+		s[x.selectedIndex] = document.Notes.note.value;
+		alert("Successfully saved");
+		prt[x.selectedIndex] = z.value; 
+	}
+}
+
+function fdisp(){
+	for(var j=0; j<x.length ; j++){
+		if(x.value == x[j].text){
+			if(s[j]){
+			document.Notes.note.value = s[j];
+			z.value = prt[j];
+			setpriority();
+			break;
+			}
+			else
+				document.Notes.note.value = "";
+		}
+	}
+}
+function fdelete(){
+	for(var k=0; k<s.length; k++){
+		if(x.selectedIndex == k){
+			for(var y=k; y<s.length; y++)
+				s[y] = s[y+1];
+			delete(s[s.length-1]);
+		}
+	}
+	x.remove(x.selectedIndex);
+	document.Notes.note.value = "";
+}
+function fsort(){
+	var g,r,temp1,temp2,temp3;
+	for(g=0;g<x.length;g++){
+		if(prt[g]=="Low"){
+			for(r=g+1;r<x.length;r++){
+				temp1=prt[r];
+				prt[r]=prt[g];
+				prt[g]=temp1;
+				temp2=x[r].text;
+				x[r].text=x[g].text;
+				x[g].text=temp2;
+				temp3=s[r];
+				s[r]=s[g];
+				s[g]=temp3;
+			}
+		}
+		else if(prt[g]=="Medium"){
+			for(r=g+1;r<x.length;r++){
+				if(prt[r]!="Low"){
+					temp1=prt[r];
+					prt[r]=prt[g];
+					prt[g]=temp1;
+					temp2=x[r].text;
+					x[r].text=x[g].text;
+					x[g].text=temp2;
+					temp3=s[r];
+					s[r]=s[g];
+					s[g]=temp3;
+				}
+			}
+		}
+	}
+}
+function fstore(){
+		for(var d=0;d<s.length;d++){
+			localStorage.setItem("xs"+d, s[d]);
+			localStorage.setItem("xt"+d, x[d]);
+			localStorage.setItem("xprt"+d, prt[d]);
+		}
+}
+function fretrieve(){
+	var a=[];
+	for(var c=0;c<s.length;c++){
+		s[c]=localStorage.getItem("xs"+c);
+		a[c]=localStorage.getItem("xt"+c);
+		prt[c]=localStorage.getItem("xprt"+c);
+	}
+}
+</script>
+</body>
+</html>
