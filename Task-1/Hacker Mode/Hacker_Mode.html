@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<title>Notes</title>
+<h1>Joe's Notes</h1>
+<body onbeforeunload = "fstore()" onload = "fretrieve()">
+<form name = "Notes">
+	Note :
+	<select id = "newop" onClick = "fdisp()">
+	</select>
+	Priority :
+	<select id = "prior" onClick = "setpriority()">
+		<option>High</option>
+		<option>Medium</option>
+		<option>Low</option>
+	</select>
+	<br>
+	<textarea id ="notetx" name ="note" rows ="20" cols = "70" placeholder = "Type Notes here"></textarea><br>
+  	<input type = "button" value = "Save" onClick ="fread()">
+	<input type = "button" value = "New" onClick = "fnew()">
+	<input type = "button" value = "Delete" onClick = "fdelete()">
+	<input type = "button" value = "Sort" onClick = "fsort()">
+</form>
+<link rel="stylesheet" type="text/css" href="Hacker_Mode.css">
+<script type="text/javascript" src="Hacker_Mode.js"></script>
+</body>
+</html>

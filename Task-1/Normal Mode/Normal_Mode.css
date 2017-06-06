@@ -1,0 +1,27 @@
+h1{
+	text-align: center;
+	font-family: "Monotype Corsiva";
+}
+form{
+	text-align: center;
+}
+select{
+	padding: 5px;
+	margin-bottom: 20px;
+	background-color: blue;
+	color: yellow;
+}
+textarea{
+	background-color: blue;
+	color: yellow;
+}
+input{
+	background-color: black;
+	color : white;
+	padding: 5px;
+	margin: 10px;
+}
+body{
+	background-image: url("note.jpg");
+	color:red;
+}
